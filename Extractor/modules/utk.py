@@ -6,8 +6,9 @@ from Crypto.Util.Padding import pad, unpad
 from base64 import b64decode
 from pyrogram import filters
 from Extractor import app
+from config import CHANNEL_ID
 appname = "Utkarsh"
-txt_dump = -1002294269403
+txt_dump = CHANNEL_ID
 def decrypt(enc):
     enc = b64decode(enc)
     Key = '%!$!%_$&!%F)&^!^'.encode('utf-8') 

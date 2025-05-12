@@ -10,8 +10,9 @@ from pyrogram import Client, filters
 import os
 import requests
 from Extractor import app
+from config import CHANNEL_ID
 
-log_channel = (-1002294269403)
+log_channel = CHANNEL_ID
 @app.on_message(filters.command(["adda"]))
 async def adda_command_handler(app, m):
     try:

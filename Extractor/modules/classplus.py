@@ -12,8 +12,9 @@ from Extractor import app
 import cloudscraper
 import concurrent.futures
 import re
+from config import CHANNEL_ID
 
-log_channel = (-1002294269403)
+log_channel = CHANNEL_ID
 
 apiurl = "https://api.classplusapp.com"
 s = cloudscraper.create_scraper() 
@@ -394,8 +395,14 @@ async def extract_batch(app, message, org_name, batch_id):
 
         async def write_to_file(extracted_data):
             """Write data to a text file asynchronously."""
-            file_path = f"{batch_name.replace("\t", "").replace(":", "").replace("/", "").replace("+", "").replace("#", "").replace("|", "").replace("@","").replace("*","").replace(".","").replace("_"," ").replace(":","")}.txt"
-            with open(file_path, "w") as file:
+            # Define characters to remove and replace
+            invalid_chars = '\t:/+#|@*.'
+            # Create a clean filename by removing invalid characters and replacing underscore with space
+            clean_name = ''.join(char for char in batch_name if char not in invalid_chars)
+            clean_name = clean_name.replace('_', ' ')
+            file_path = f"{clean_name}.txt"
+            
+            with open(file_path, "w", encoding='utf-8') as file:
                 file.write(''.join(extracted_data))  
             return file_path
 

@@ -10,7 +10,10 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad
 from base64 import b64decode
 from bs4 import BeautifulSoup
-log_channel = (-1002294269403)
+from config import CHANNEL_ID
+
+log_channel = CHANNEL_ID
+
 def decrypt(enc):
     enc = b64decode(enc.split(':')[0])
     key = '638udh3829162018'.encode('utf-8')
@@ -78,6 +81,7 @@ async def fetch_folder_contents(session, api, course_id, folder_id, headers, f):
                 if mt == "FOLDER":
                     tasks.append(fetch_folder_contents(session, api, course_id, item["id"], headers, f))
         await asyncio.gather(*tasks)
+
 async def rgvikram_txt(app, message, api, name):
     api_base = api if api.startswith(("http://", "https://")) else f"https://{api}"
     

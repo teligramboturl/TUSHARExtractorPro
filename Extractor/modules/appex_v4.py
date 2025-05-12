@@ -15,8 +15,10 @@ from base64 import b64decode
 from bs4 import BeautifulSoup
 from concurrent.futures import ThreadPoolExecutor
 import time 
-log_channel = (-1002294269403)
-log_channel2 = (-1002294269403)
+from config import CHANNEL_ID
+
+log_channel = CHANNEL_ID
+log_channel2 = CHANNEL_ID
 
 
 def decrypt(enc):

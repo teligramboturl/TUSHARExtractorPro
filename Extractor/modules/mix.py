@@ -7,11 +7,12 @@ from base64 import b64decode
 from pyrogram import filters
 import cloudscraper
 from Extractor import app
+from config import CHANNEL_ID
 import os
 import base64
 import time
 
-log_channel = (-1002294269403)
+log_channel = CHANNEL_ID
 def decrypt(enc):
     enc = b64decode(enc.split(':')[0])
     key = '638udh3829162018'.encode('utf-8')

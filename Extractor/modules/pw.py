@@ -4,12 +4,13 @@ from pyrogram import Client, filters
 import requests, os, sys, re
 import math
 import json, asyncio
+from config import CHANNEL_ID
 import subprocess
 import datetime
 from Extractor import app
 from pyrogram import filters
 from subprocess import getstatusoutput
-log_channel = (-1002294269403)
+log_channel = CHANNEL_ID
 
 @app.on_message(filters.command(["pw"]))
 async def pw_login(app, message):

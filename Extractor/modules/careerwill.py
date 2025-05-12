@@ -5,7 +5,8 @@ import asyncio
 import cloudscraper
 from pyrogram import filters
 from Extractor import app
-log_channel = (-1002294269403)
+from config import CHANNEL_ID
+log_channel = CHANNEL_ID
 
 
 

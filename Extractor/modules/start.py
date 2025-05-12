@@ -2,7 +2,7 @@ import re
 import random
 from pyrogram import filters
 from Extractor import app
-from config import OWNER_ID, SUDO_USERS
+from config import OWNER_ID, SUDO_USERS, CHANNEL_ID
 from Extractor.core import script
 from Extractor.core.func import subscribe, chk_user
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
@@ -18,7 +18,7 @@ from Extractor.modules.findapi import findapis_extract
 from Extractor.modules.utk import handle_utk_logic
 from Extractor.modules.iq import handle_iq_logic
 from Extractor.modules.adda import adda_command_handler
-log_channel = (-1002294269403)
+log_channel = CHANNEL_ID
 # ------------------------------------------------------------------------------- #
 
 

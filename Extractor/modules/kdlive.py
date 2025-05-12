@@ -4,7 +4,8 @@ import json
 import time
 import httpx
 import hashlib
-log_channel = (-1002294269403)
+from config import CHANNEL_ID
+log_channel = CHANNEL_ID
 
 
 @app.on_message(filters.command(["kd"]))

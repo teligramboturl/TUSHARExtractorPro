@@ -7,8 +7,9 @@ import server
 from pyrogram import Client
 from pyrogram import filters
 from Extractor import app
+from config import CHANNEL_ID
 
-log_channel = (-1002294269403)
+log_channel = CHANNEL_ID
 async def fetchs(url, json=None, headers=None):
     async with aiohttp.ClientSession() as session:
         async with session.post(url, json=json, headers=headers) as response:

@@ -10,8 +10,9 @@ from Extractor import app
 import os
 import base64
 import time
+from config import CHANNEL_ID
 
-log_channel = (-1002294269403)
+log_channel = CHANNEL_ID
 def decrypt(enc):
     enc = b64decode(enc.split(':')[0])
     key = '638udh3829162018'.encode('utf-8')

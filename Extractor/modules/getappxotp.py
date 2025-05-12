@@ -4,7 +4,8 @@ import json
 from Extractor import app
 from pyrogram import filters
 import requests
-log_channel = (-1002294269403)
+from config import CHANNEL_ID
+log_channel = CHANNEL_ID
 
 @app.on_message(filters.command(["appxotp"]))
 async def send_otpp(app, message):
