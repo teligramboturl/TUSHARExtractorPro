@@ -10,7 +10,8 @@ SUDO_USERS = list(map(int, getenv("SUDO_USERS", "5121141243").split()))
 MONGO_URL = getenv("MONGO_DB", "mongodb+srv://wadiro6523:08AwfhhKRdQaS1i6@cluster0.krzxuop.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 
 CHANNEL_ID = int(getenv("CHANNEL_ID", "-1002226641720"))
-PREMIUM_LOGS = int(getenv("PREMIUM_LOGS", "-1002226641720"))
+PREMIUM_LOGS = int(getenv("PREMIUM_LOGS", "-1002226641720")) "22746239"))
+API_HASH = environ.get("API_HASH", "a98ec8cfd8572a3a7c936cf828fe6215")
 
 """
 #
@@ -23,9 +24,9 @@ PREMIUM_LOGS = int(getenv("PREMIUM_LOGS", "-1002226641720"))
 import os
 from os import getenv
 # ---------------R---------------------------------
-API_ID = int(os.environ.get("API_ID", "20937734"))
+API_ID = int(os.environ.get("API_ID", "22746239"))
 # ------------------------------------------------
-API_HASH = os.environ.get("API_HASH", "1db7bdcf908100cc641c6a5276765c3d")
+API_HASH = os.environ.get("API_HASH", "a98ec8cfd8572a3a7c936cf828fe6215")
 # ----------------D--------------------------------
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "8085223918:AAHl90R_z2NgZ53vkU7ydybLb46C2i3FEg4")
 # -----------------A-------------------------------
