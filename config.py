@@ -24,18 +24,18 @@ API_HASH = environ.get("API_HASH", "a98ec8cfd8572a3a7c936cf828fe6215")
 import os
 from os import getenv
 # ---------------R---------------------------------
-API_ID = int(os.environ.get("API_ID", ""))
+API_ID = int(os.environ.get("API_ID", "24473318"))
 # ------------------------------------------------
-API_HASH = os.environ.get("API_HASH", "")
+API_HASH = os.environ.get("API_HASH", "e7dd0576c5ac0ff8f90971d6bb04c8f5")
 # ----------------D--------------------------------
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "7923699628:AAExP0Mu-ztnK-md9pJhUNJywQ7UrZtrghc")
 # -----------------A-------------------------------
-BOT_USERNAME = os.environ.get("")
+BOT_USERNAME = os.environ.get("Testinlikeyboardrobot")
 # ------------------X------------------------------
-OWNER_ID = int(os.environ.get("OWNER_ID", ""))
+OWNER_ID = int(os.environ.get("OWNER_ID", "5840594311"))
 # ------------------X------------------------------
 
-SUDO_USERS = list(map(int, getenv("SUDO_USERS", "").split()))
+SUDO_USERS = list(map(int, getenv("SUDO_USERS", "5840594311").split()))
 # ------------------------------------------------
 CHANNEL_ID = int(os.environ.get("CHANNEL_ID", ""))
 # ------------------------------------------------
