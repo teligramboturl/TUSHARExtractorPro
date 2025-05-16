@@ -1,54 +1,46 @@
 import importlib
-from aiohttp import web
-from pyrogram import Client, filters
-from Extractor import app  # Tera Client instance
+import threading
+import time
+from flask import Flask
+from pyrogram import Client, idle
+
+from Extractor import app  # Tera Pyrogram client instance
 from Extractor.modules import ALL_MODULES
 
-# Webhook handler
-async def handle(request):
-    await app.process_webhook_update(await request.json())
-    return web.Response(text="OK")
+# Flask app banate hain
+flask_app = Flask(__name__)
 
-# Health check route (optional but good for Render)
-async def health_check(request):
-    return web.Response(text="Bot is alive!")
+@flask_app.route('/')
+def home():
+    return "Bot is alive!", 200
 
-async def main():
-    # Sab modules load karwa le
+def run_flask():
+    # Flask ko alag thread me 0.0.0.0:8080 port pe chalao
+    flask_app.run(host="0.0.0.0", port=1000)
+
+def start_bot():
+    # Modules load karo
     for module in ALL_MODULES:
         importlib.import_module(f"Extractor.modules.{module}")
 
-    # Web server setup (Render pr 0.0.0.0:8080 fix hai)
-    app_web = web.Application()
-    app_web.add_routes([
-        web.post("/", handle),
-        web.get("/", health_check)
-    ])
+    # Bot start karo
+    app.start()
+    print("✅ Bot Started. Polling mode ON!")
 
-    runner = web.AppRunner(app_web)
-    await runner.setup()
-    site = web.TCPSite(runner, "0.0.0.0", 8080)
-    await site.start()
+    # Bot ko idle rakho (polling)
+    idle()
 
-    print("✅ Webhook Server running on port 8080")
-
-    # Start Pyrogram Client with webhook settings
-    await app.start()
-    await app.set_webhook("https://tusharextractorpro.onrender.com")  # <-- Change this URL
-
-    print("✅ Bot Started with Webhook 🔥")
-
-    # Idle loop chalayenge taki process zinda rahe
-    await app.idle()
-
-    # Jab stop karenge
-    await app.stop()
-    print("👋 Bot Stopped. Bye!")
+    # Bot band hone pe stop karo
+    app.stop()
+    print("👋 Bot stopped.")
 
 if __name__ == "__main__":
-    import asyncio
-    asyncio.run(main())
-    
+    # Flask server ko background thread me chalao
+    flask_thread = threading.Thread(target=run_flask)
+    flask_thread.start()
+
+    # Bot ko main thread me chalao
+    start_bot()
     
     
 
