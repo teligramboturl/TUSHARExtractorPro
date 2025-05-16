@@ -1,46 +1,44 @@
 import asyncio
 import importlib
 from aiohttp import web
-from pyrogram import idle
-from Extractor import app  # Tera Client instance
+from pyrogram import Client, idle
+from Extractor import app  # Tera Pyrogram Client
 from Extractor.modules import ALL_MODULES
 
-# HTTP server for Render health check
-async def handle(request):
-    return web.Response(text="Bot is Alive!")
+# HTTP server for Render healthcheck
+async def web_server():
+    async def handle(request):
+        return web.Response(text="✅ Bot is Alive (Render Healthcheck)")
 
-async def start_http_server():
-    app_http = web.Application()
-    app_http.router.add_get("/", handle)
+    app_web = web.Application()
+    app_web.add_routes([web.get("/", handle)])
 
-    runner = web.AppRunner(app_http)
+    runner = web.AppRunner(app_web)
     await runner.setup()
     site = web.TCPSite(runner, "0.0.0.0", 8080)
     await site.start()
-    print("✅ HTTP Server Running on port 8080")
 
-async def bot_main():
-    # Sab modules ko import karlo
+    print("✅ HTTP Server running on port 8080 for Render healthcheck")
+
+# Main Bot Function
+async def main():
+    # Load all modules
     for module in ALL_MODULES:
         importlib.import_module(f"Extractor.modules.{module}")
 
-    # HTTP Server ko chalu karo (background me)
-    await start_http_server()
+    # Start HTTP Server in background
+    asyncio.create_task(web_server())
 
-    print("✅ Bot Deployed Successfully! Polling Started 🔥")
+    print("✅ Bot Started! Polling running...")
 
-    # Pyrogram polling listener (idle)
+    # Wait for updates (polling)
     await idle()
 
-    print("👋 Bot Stopped. Bye!")
+    print("👋 Bot Stopped!")
 
 if __name__ == "__main__":
-    async def main():
-        # Pyrogram Client ko safe async context me chalao
-        async with app:
-            await bot_main()
-
-    asyncio.run(main())
+    # Run Pyrogram Client in async context
+    app.run(main)
     
     
 
