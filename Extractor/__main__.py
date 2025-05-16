@@ -34,7 +34,7 @@ async def main():
 
     # Start Pyrogram Client with webhook settings
     await app.start()
-    await app.set_webhook("https://your-render-subdomain.onrender.com/")  # <-- Change this URL
+    await app.set_webhook("https://tusharextractorpro.onrender.com")  # <-- Change this URL
 
     print("✅ Bot Started with Webhook 🔥")
 
