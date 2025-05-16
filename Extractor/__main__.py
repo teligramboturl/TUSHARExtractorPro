@@ -1,50 +1,31 @@
 import asyncio
-import logging
-from pyrogram import Client
+from pyrogram import Client, idle
 from flask import Flask
-import threading
-import os
-from config import API_ID, API_HASH, BOT_TOKEN  # Apni config file mein rakho
 
-logging.basicConfig(
-    format="[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s",
-    level=logging.INFO,
-)
-logger = logging.getLogger(__name__)
+from config import API_ID, API_HASH, BOT_TOKEN
 
-app = Client(
-    "extractor_bot_session",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=BOT_TOKEN,
-    sleep_threshold=120,
-    workers=500,
-)
-
+app = Client("extractor_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 flask_app = Flask(__name__)
 
 @flask_app.route("/")
-def index():
+def home():
     return "Bot is alive!"
 
-async def start_pyrogram():
+async def start_bot():
     await app.start()
-    me = await app.get_me()
-    logger.info(f"Bot started: {me.first_name} (@{me.username})")
-    await app.idle()
+    print("Bot started!")
+    await idle()
     await app.stop()
+    print("Bot stopped!")
 
-def run_flask():
-    port = int(os.environ.get("PORT", 8080))
-    flask_app.run(host="0.0.0.0", port=port)
+def run():
+    loop = asyncio.get_event_loop()
+    loop.create_task(start_bot())
+    # Flask app ko non-blocking mode me start karenge
+    flask_app.run(host="0.0.0.0", port=1000)
 
 if __name__ == "__main__":
-    # Flask ko alag thread me chalao
-    flask_thread = threading.Thread(target=run_flask)
-    flask_thread.start()
-
-    # Pyrogram bot ko asyncio me run karo (main thread)
-    asyncio.run(start_pyrogram())
+    run()
     
 
 
