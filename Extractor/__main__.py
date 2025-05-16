@@ -1,31 +1,42 @@
 import asyncio
 from pyrogram import Client, idle
-from flask import Flask
+from flask import Flask, request
+import threading
 
 from config import API_ID, API_HASH, BOT_TOKEN
 
-app = Client("extractor_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
+# Pyrogram Client
+bot_app = Client("extractor_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
+
+# Flask app for keeping port alive
 flask_app = Flask(__name__)
 
-@flask_app.route("/")
+@flask_app.route("/", methods=["GET", "POST"])
 def home():
-    return "Bot is alive!"
+    return "✅ Bot is Alive & Running!"
 
+# Flask ko alag thread me run karenge (non-blocking)
+def run_flask():
+    flask_app.run(host="0.0.0.0", port=10000)
+
+# Pyrogram bot ko run karna
 async def start_bot():
-    await app.start()
-    print("Bot started!")
+    await bot_app.start()
+    print("✅ Bot Started with Polling!")
     await idle()
-    await app.stop()
-    print("Bot stopped!")
-
-def run():
-    loop = asyncio.get_event_loop()
-    loop.create_task(start_bot())
-    # Flask app ko non-blocking mode me start karenge
-    flask_app.run(host="0.0.0.0", port=1000)
+    await bot_app.stop()
+    print("👋 Bot Stopped!")
 
 if __name__ == "__main__":
-    run()
+    # Flask ko thread me chalana
+    threading.Thread(target=run_flask).start()
+
+    # Pyrogram bot ko asyncio loop me start karna
+    asyncio.run(start_bot())
+    
+
+
+
     
 
 
