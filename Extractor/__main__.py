@@ -1,38 +1,48 @@
 import asyncio
-from pyrogram import Client, idle
-from flask import Flask, request
+import importlib
 import threading
+from pyrogram import Client, idle
+from flask import Flask
 
 from config import API_ID, API_HASH, BOT_TOKEN
+from Extractor.modules import ALL_MODULES
 
-# Pyrogram Client
-bot_app = Client("extractor_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
+# ✅ Pyrogram Client instance
+bot = Client("extractor_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
-# Flask app for keeping port alive
+# ✅ Flask app for Render/Koyeb keepalive
 flask_app = Flask(__name__)
 
-@flask_app.route("/", methods=["GET", "POST"])
+@flask_app.route("/")
 def home():
-    return "✅ Bot is Alive & Running!"
+    return "✅ Bot is alive & working fine!"
 
-# Flask ko alag thread me run karenge (non-blocking)
+# ✅ Flask ko alag thread me run karenge
 def run_flask():
     flask_app.run(host="0.0.0.0", port=10000)
 
-# Pyrogram bot ko run karna
+# ✅ Pyrogram bot ko start karenge aur modules load
 async def start_bot():
-    await bot_app.start()
-    print("✅ Bot Started with Polling!")
-    await idle()
-    await bot_app.stop()
-    print("👋 Bot Stopped!")
+    await bot.start()
+    print("✅ Bot started & connected to Telegram API!")
+
+    # Modules load karna
+    for module in ALL_MODULES:
+        importlib.import_module(f"Extractor.modules.{module}")
+
+    print("✅ All modules loaded successfully! Polling started 🔥")
+    await idle()  # Yeh polling karega (long-polling)
+
+    print("👋 Bot stopped. Shutting down...")
+    await bot.stop()
 
 if __name__ == "__main__":
-    # Flask ko thread me chalana
+    # ✅ Flask ko thread me run karte hain (non-blocking)
     threading.Thread(target=run_flask).start()
 
-    # Pyrogram bot ko asyncio loop me start karna
+    # ✅ Bot ko asyncio event loop me run karte hain
     asyncio.run(start_bot())
+    
     
 
 
