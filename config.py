@@ -28,9 +28,9 @@ API_ID = int(os.environ.get("API_ID", "24473318"))
 # ------------------------------------------------
 API_HASH = os.environ.get("API_HASH", "e7dd0576c5ac0ff8f90971d6bb04c8f5")
 # ----------------D--------------------------------
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "7923699628:AAExP0Mu-ztnK-md9pJhUNJywQ7UrZtrghc")
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "7038054586:AAEQUmT97qASiZMvP0QH3Vfw2WtJYXu9eig")
 # -----------------A-------------------------------
-BOT_USERNAME = os.environ.get("Testinlikeyboardrobot")
+BOT_USERNAME = os.environ.get("TestectractnewviralroooBot")
 # ------------------X------------------------------
 OWNER_ID = int(os.environ.get("OWNER_ID", "5840594311"))
 # ------------------X------------------------------
