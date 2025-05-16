@@ -1,44 +1,54 @@
-import asyncio
 import importlib
 from aiohttp import web
-from pyrogram import Client, idle
-from Extractor import app  # Tera Pyrogram Client
+from pyrogram import Client, filters
+from Extractor import app  # Tera Client instance
 from Extractor.modules import ALL_MODULES
 
-# HTTP server for Render healthcheck
-async def web_server():
-    async def handle(request):
-        return web.Response(text="✅ Bot is Alive (Render Healthcheck)")
+# Webhook handler
+async def handle(request):
+    await app.process_webhook_update(await request.json())
+    return web.Response(text="OK")
 
+# Health check route (optional but good for Render)
+async def health_check(request):
+    return web.Response(text="Bot is alive!")
+
+async def main():
+    # Sab modules load karwa le
+    for module in ALL_MODULES:
+        importlib.import_module(f"Extractor.modules.{module}")
+
+    # Web server setup (Render pr 0.0.0.0:8080 fix hai)
     app_web = web.Application()
-    app_web.add_routes([web.get("/", handle)])
+    app_web.add_routes([
+        web.post("/", handle),
+        web.get("/", health_check)
+    ])
 
     runner = web.AppRunner(app_web)
     await runner.setup()
     site = web.TCPSite(runner, "0.0.0.0", 8080)
     await site.start()
 
-    print("✅ HTTP Server running on port 8080 for Render healthcheck")
+    print("✅ Webhook Server running on port 8080")
 
-# Main Bot Function
-async def main():
-    # Load all modules
-    for module in ALL_MODULES:
-        importlib.import_module(f"Extractor.modules.{module}")
+    # Start Pyrogram Client with webhook settings
+    await app.start()
+    await app.set_webhook("https://your-render-subdomain.onrender.com/")  # <-- Change this URL
 
-    # Start HTTP Server in background
-    asyncio.create_task(web_server())
+    print("✅ Bot Started with Webhook 🔥")
 
-    print("✅ Bot Started! Polling running...")
+    # Idle loop chalayenge taki process zinda rahe
+    await app.idle()
 
-    # Wait for updates (polling)
-    await idle()
-
-    print("👋 Bot Stopped!")
+    # Jab stop karenge
+    await app.stop()
+    print("👋 Bot Stopped. Bye!")
 
 if __name__ == "__main__":
-    # Run Pyrogram Client in async context
-    app.run(main)
+    import asyncio
+    asyncio.run(main())
+    
     
     
 
