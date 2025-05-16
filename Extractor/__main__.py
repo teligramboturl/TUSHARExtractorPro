@@ -1,6 +1,6 @@
 import asyncio
 import importlib
-from pyrogram import Client, idle
+from pyrogram import idle
 from Extractor import app  # Tera Pyrogram Client instance
 from Extractor.modules import ALL_MODULES
 from aiohttp import web
@@ -35,11 +35,14 @@ async def main():
     print("👋 Bot Stopped. Bye!")
 
 if __name__ == "__main__":
-    app.start()
-    try:
-        asyncio.run(main())
-    finally:
-        app.stop()
+    # Yeh async context manager se start kar (safe way)
+    async def runner():
+        async with app:
+            await main()
+
+    asyncio.run(runner())
+    
+
 
 
 """
