@@ -12,6 +12,8 @@ import requests
 from Extractor import app
 from config import CHANNEL_ID
 
+
+
 log_channel = CHANNEL_ID
 
 @app.on_message(filters.command(["adda"]))
@@ -31,10 +33,17 @@ async def adda_command_handler(app, m):
             login_url = "https://userapi.adda247.com/login?src=aweb"
             data = {"email": e, "providerName": "email", "sec": p}
 
-            login_resp = requests.post(login_url, json=data, headers=headers).json()
+            # ✅ Debug Patch added here:
+            login_resp_raw = requests.post(login_url, json=data, headers=headers)
+            try:
+                login_resp = login_resp_raw.json()
+            except Exception as e:
+                await m.reply_text(f"❗ Invalid JSON response:\nStatus: {login_resp_raw.status_code}\nResponse: {login_resp_raw.text}")
+                return
+
             jwt = login_resp.get("jwtToken")
             if not jwt:
-                await m.reply_text("❌ Login failed. Invalid credentials.")
+                await m.reply_text("❌ Login failed. Invalid credentials or blocked request.")
                 return
         else:
             jwt = ap  # direct token input
@@ -110,4 +119,5 @@ async def adda_command_handler(app, m):
 
     except Exception as e:
         await m.reply_text(f"❗ Error : {str(e)}")
+        
         
