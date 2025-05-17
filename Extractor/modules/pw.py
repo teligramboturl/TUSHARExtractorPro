@@ -17,7 +17,7 @@ async def pw_login(app, message):
     try:
         query_msg = await app.ask(
             chat_id=message.chat.id,
-            text="🔐 **Enter your PW Mobile No. (without country code) or your Login Token:")
+            text="🔐 **𝗘𝗻𝘁𝗲𝗿 𝗬𝗼𝘂𝗿 𝗣𝘄 𝗠𝗼𝗯𝗶𝗹𝗲 𝗡𝗼\𝗻\n𝗢𝗥\𝗻\n𝗘𝗻𝘁𝗲𝗿 𝗬𝗼𝘂𝗿 𝗣𝘄 𝗧𝗼𝗸𝗲𝗻")
                  
         
         user_input = query_msg.text.strip()
@@ -38,7 +38,7 @@ async def pw_login(app, message):
                 "Content-Type": "application/json"
             }
             
-            await app.send_message(message.chat.id, "🔄 **Sending OTP... Please wait!**")
+            await app.send_message(message.chat.id, "🔄 **𝖲𝖾𝗇𝖽𝗂𝗇𝗀 𝖮𝗍𝗉... Please wait!**")
             otp_response = requests.post(
                 "https://api.penpencil.co/v1/users/get-otp?smsType=0", 
                 headers=headers, 
@@ -50,7 +50,7 @@ async def pw_login(app, message):
                 return
             
             await app.send_message(message.chat.id, "✅ **OTP sent successfully! Please enter your OTP:**")
-            otp_msg = await app.ask(message.chat.id, text="🔑 **Enter the OTP you received:**")
+            otp_msg = await app.ask(message.chat.id, text="🔑 **𝗘𝗻𝘁𝗲𝗿 𝗢𝘁𝗽 𝗬𝗼𝘂 𝗥𝗲𝗰𝗶𝗲𝘃𝗲𝗱:**")
             otp = otp_msg.text.strip()
 
             token_payload = {
@@ -75,9 +75,9 @@ async def pw_login(app, message):
                 await message.reply_text("❌ **Login failed! Invalid OTP.**")
                 return
             
-            dl = (f"✅ ** PW Login Successful!**\n\n🔑 **Here is your token:**\n`{token}`")
-            await message.reply_text(f"✅ **Login Successful!**\n\n🔑 **Here is your token:**\n`{token}`")
-            await app.send_message(log_channel, dl)
+            dl = (f"<b>Physics Wallah Login Successful ✅</b>\n\n<pre language='Save this Login Token for future usage'>{token}</pre>\n\n")
+            await message.reply_text(f"<b>Physics Wallah Login Successful ✅</b>\n\n<pre language='Save this Login Token for future usage'>{token}</pre>\n\n")
+            #await app.send_message(log_channel, dl)
         
         elif user_input.startswith("e"):
             token = user_input
@@ -116,7 +116,7 @@ async def pw_login(app, message):
 
         query_msg = await app.send_message(
             chat_id=message.chat.id, 
-            text=batch_text + "\n\n💡 **Please enter the Course ID to continue:**",
+            text=batch_text + "\n\n💡 **𝖯𝗅𝖾𝖺𝗌𝖾 𝖤𝗇𝗍𝖾𝗋 𝖳𝗁𝖾 𝖢𝗈𝗎𝗋𝗌𝖾 𝖨𝖽**",
             reply_markup=None
         )
         
@@ -180,10 +180,9 @@ async def pw_login(app, message):
         await app.send_document(
             chat_id=message.chat.id, 
             document=filename, 
-            caption=f"App Name: PHYSICS WALLAH \n\n 🆔** Batch ID:** **{target_id}**\n📂 **Batch:** **{batch_name}**✅\n \n\n  **╾───• Cobra Extractor •───╼** "
-        )
+            caption =f"**App Name : ```\nPhysics Wallah```\nBatch Name : ```\n{batch_name}```**")
         await app.send_document(log_channel, document=filename, caption = captionn)
-        await app.send_message(log_channel , up)
+        #await app.send_message(log_channel , up)
 
     except Exception as e:
         await message.reply_text(f"❌ **An error occurred:** `{str(e)}`")
