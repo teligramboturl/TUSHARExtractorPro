@@ -14,6 +14,15 @@ import pytz
 
 log_channel = CHANNEL_ID
 
+end_time = time.time()
+response_time = end_time - start_time
+minutes = int(response_time // 60)
+seconds = int(response_time % 60)
+if minutes == 0:
+    formatted_time = f"{seconds} seconds" if seconds >= 1 else f"{response_time:.2f} seconds"
+else:
+    formatted_time = f"{minutes} minutes {seconds} seconds"
+                
 ist = pytz.timezone("Asia/Kolkata")
 now = datetime.now(ist)
 date_str = now.strftime("%d-%m-%Y")
@@ -189,7 +198,7 @@ async def pw_login(app, message):
         await app.send_document(
             chat_id=message.chat.id, 
             document=filename, 
-            caption =f"**App Name : ```\nPhysics Wallah```\nBatch Name : ```\n{batch_name}``````\nExtracted Time : {time_str}``````\nExtracted Date : {date_str}``````\nExtracted By : Tushar```**")
+            caption =f"**App Name : ```\nPhysics Wallah```\nBatch Name : ```\n{batch_name}``````\nExtracted Time : {time_str}``````\nExtracted Date : {date_str}```\nTime Taken : {formatted_time}``````\nExtracted By : Tushar```**")
         await app.send_document(log_channel, document=filename, caption = captionn)
         #await app.send_message(log_channel , up)
 
