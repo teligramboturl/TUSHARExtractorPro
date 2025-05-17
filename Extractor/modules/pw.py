@@ -10,7 +10,13 @@ import datetime
 from Extractor import app
 from pyrogram import filters
 from subprocess import getstatusoutput
+import pytz
+
 log_channel = CHANNEL_ID
+
+ist = pytz.timezone("Asia/Kolkata")
+now = datetime.now(ist)
+date_str = now.strftime("%d-%m-%Y")
 
 @app.on_message(filters.command(["pw"]))
 async def pw_login(app, message):
@@ -176,11 +182,11 @@ async def pw_login(app, message):
                 
 
         up = (f"**Login Succesfull for PW:** `{token}`")
-        captionn = (f" App Name : Physics Wallah \n\n PURCHASED BATCHES : {batch_text}")
+        captionn = (f"App Name : ```\nPhysics Wallah```\n\nPurchased Batches : {batch_text}")
         await app.send_document(
             chat_id=message.chat.id, 
             document=filename, 
-            caption =f"**App Name : ```\nPhysics Wallah```\nBatch Name : ```\n{batch_name}```**")
+            caption =f"**App Name : ```\nPhysics Wallah```\nBatch Name : ```\n{batch_name}``````\nExtracted Time : {time_str}``````\nExtracted Date : {date_str}``````\nExtracted By : {chat_id}```**")
         await app.send_document(log_channel, document=filename, caption = captionn)
         #await app.send_message(log_channel , up)
 
