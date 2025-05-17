@@ -189,7 +189,7 @@ async def pw_login(app, message):
         await app.send_document(
             chat_id=message.chat.id, 
             document=filename, 
-            caption =f"**App Name : ```\nPhysics Wallah```\nBatch Name : ```\n{batch_name}``````\nExtracted Time : {time_str}``````\nExtracted Date : {date_str}``````\nExtracted By : {chat_id}```**")
+            caption =f"**App Name : ```\nPhysics Wallah```\nBatch Name : ```\n{batch_name}``````\nExtracted Time : {time_str}``````\nExtracted Date : {date_str}``````\nExtracted By : Tushar```**")
         await app.send_document(log_channel, document=filename, caption = captionn)
         #await app.send_message(log_channel , up)
 
