@@ -17,6 +17,7 @@ log_channel = CHANNEL_ID
 ist = pytz.timezone("Asia/Kolkata")
 now = datetime.now(ist)
 date_str = now.strftime("%d-%m-%Y")
+time_str = now.strftime("%H:%M:%S")  # 🛠️ Add this line
 
 
 
