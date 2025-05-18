@@ -16,6 +16,7 @@ import pytz
 log_channel = CHANNEL_ID
 
 end_time = time.time()
+start_time = time.time()
 response_time = end_time - start_time
 minutes = int(response_time // 60)
 seconds = int(response_time % 60)
