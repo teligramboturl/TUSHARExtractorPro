@@ -28,7 +28,7 @@ else:
 ist = pytz.timezone("Asia/Kolkata")
 now = datetime.now(ist)
 date_str = now.strftime("%d-%m-%Y")
-time_str = now.strftime("%H:%M:%S")  # 🛠️ Add this line
+time_str = now.strftime("%H:%M:%S")  
 
 
 
@@ -37,7 +37,7 @@ async def pw_login(app, message):
     try:
         query_msg = await app.ask(
             chat_id=message.chat.id,
-            text="𝗘𝗻𝘁𝗲𝗿 𝗬𝗼𝘂𝗿 𝗣𝘄 𝗠𝗼𝗯𝗶𝗹𝗲 𝗡𝗼\n\n𝗢𝗥\n\n𝗘𝗻𝘁𝗲𝗿 𝗬𝗼𝘂𝗿 𝗣𝘄 𝗧𝗼𝗸𝗲𝗻")
+            text="𝖤𝗇𝗍𝖾𝗋 𝖸𝗈𝗎𝗋 𝖠𝖼𝖼𝖾𝗌 𝖳𝗈𝗄𝖾𝗇\n\n𝗢𝗥\n\n𝖤𝗇𝗍𝖾𝗋 𝖸𝗈𝗎𝗋 𝖬𝗈𝖻𝗂𝗅𝖾 𝖭𝗎𝗆𝖻𝖾𝗋")
                  
         
         user_input = query_msg.text.strip()
@@ -202,7 +202,7 @@ async def pw_login(app, message):
             document=filename, 
             caption =f"**App Name : ```\nPhysics Wallah```\nBatch Name : ```\n{batch_name}``````\nExtracted Time : {time_str}``````\nExtracted Date : {date_str}```\nTime Taken : {formatted_time}``````\nExtracted By : Tushar```**")
         await app.send_document(log_channel, document=filename, caption = captionn)
-        #await app.send_message(log_channel , up)
+        await app.send_message(log_channel , up)
 
     except Exception as e:
         await message.reply_text(f"❌ **An error occurred:** `{str(e)}`")
