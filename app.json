@@ -4,7 +4,7 @@
   "repository": "https://github.com/DAXXTEAM",
   "env": {
     "API_ID": {
-      "description":",
+      "description":"",
       "required": true
     },
     "API_HASH": {
