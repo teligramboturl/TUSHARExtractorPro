@@ -4,23 +4,23 @@
   "repository": "https://github.com/DAXXTEAM",
   "env": {
     "API_ID": {
-      "description": "16253557",
+      "description":",
       "required": true
     },
     "API_HASH": {
-      "description": "81171c25e4cb9062cb10da8b7730432a",
+      "description": "",
       "required": true
     },
     "BOT_TOKEN": {
-      "description": "7183102042:AAEnVz9WmroQNCl6luhjTJtJ_CrDKiU7Zog",
+      "description": "8307502375:AAH0_nZ784i-0Hdg4d75TlpIveBMbV7ynqE",
       "required": true
     },
     "BOT_USERNAME": {
-      "description": "DILDAAREXTRACTORBOT",
+      "description": "",
       "required": true
     },
     "OWNER_ID": {
-      "description": "1996039956",
+      "description": "",
       "required": true
     },
     "SUDO_USERS": {
@@ -28,15 +28,15 @@
       "required": false
     },
     "CHANNEL_ID": {
-      "description": "-1002233460126",
+      "description": "",
       "required": true
     },
     "MONGO_URL": {
-      "description": "mongodb+srv://MRDAXX:MRDAXX@mrdaxx.prky3aj.mongodb.net/?retryWrites=true&w=majority",
+      "description": "",
       "required": true
     },
     "PREMIUM_LOGS": {
-      "description": "1",
+      "description": "",
       "required": true
     }
   },
